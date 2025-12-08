@@ -1,0 +1,13 @@
+FROM node:lts-alpine
+
+WORKDIR /usr/src/app
+
+COPY gate-simulator/package*.json ./
+
+RUN npm install
+
+COPY gate-simulator/. .
+
+EXPOSE 9999
+
+CMD ["npm", "start"]
