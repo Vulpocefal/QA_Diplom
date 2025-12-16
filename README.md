@@ -20,10 +20,8 @@
 
 ## Установка и запуск тестов
 
-//здесь будет описание установки и запуска тестов//
-
-1. 
-2. 
+1. Для установки необходимых модулей используйте команду "pip install -r requirements.txt"
+2. Для запуска тестов без использования модуля Allure Report используйте команду "pytest tests"
 
 ## Просмотр отчетов Allure Report
 
@@ -35,8 +33,11 @@
 
 
 
+//Это всё, что удалось выудить из БД (скопировал из docker exec. 
+//DBeaver при запуске скрипта пишет, что нет соединения, хотя базу видит и к ней подключается).
+//Порт поменял на 5433:5432
 
-# su postgres
+su postgres
 postgres@2ebe98739f2e:/$ psql
 psql: error: connection to server on socket "/var/run/postgresql/.s.PGSQL.5432" failed: FATAL:  role "postgres" does not exist
 postgres@2ebe98739f2e:/$ psql -U aqa_user
