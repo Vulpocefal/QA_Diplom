@@ -3,7 +3,7 @@ import allure
 
 @allure.epic("QA_Diplom")
 @allure.feature("API-запросы")
-@allure.story("Покупка тура по тестовой карте с правильным номером")
+@allure.story("Покупка тура по тестовой карте с номером для одобрения")
 def test_valid_pay (api_session, app_url):
     with allure.step("JSON-файл с валидными данными"):
         payload = {
@@ -22,7 +22,7 @@ def test_valid_pay (api_session, app_url):
 
 @allure.epic("QA_Diplom")
 @allure.feature("API-запросы")
-@allure.story("Покупка тура в кредит по тестовой карте с правильным номером")
+@allure.story("Покупка тура в кредит по тестовой карте с номером для одобрения")
 def test_valid_credit (api_session, app_url):
     with allure.step("JSON-файл с валидными данными"):
         payload = {
@@ -41,7 +41,7 @@ def test_valid_credit (api_session, app_url):
 
 @allure.epic("QA_Diplom")
 @allure.feature("API-запросы")
-@allure.story("Покупка тура по тестовой карте с неправильным номером")
+@allure.story("Покупка тура по тестовой карте с номером для отказа")
 def test_invalid_pay (api_session, app_url):
     with allure.step("JSON-файл с валидными данными"):
         payload = {
@@ -66,7 +66,7 @@ def test_invalid_pay (api_session, app_url):
 
 @allure.epic("QA_Diplom")
 @allure.feature("API-запросы")
-@allure.story("Покупка тура в кредит по тестовой карте с неправильным номером")
+@allure.story("Покупка тура в кредит по тестовой карте с номером для отказа")
 def test_invalid_credit (api_session, app_url):
     with allure.step("JSON-файл с валидными данными"):
         payload = {

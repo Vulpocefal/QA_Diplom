@@ -1,4 +1,4 @@
-# Фреймворк автоматизации тестирования [Название вашего проекта]
+# Фреймворк автоматизации тестирования
 
 Этот репозиторий содержит UI-тесты для веб-сервиса "Путешествие дня", реализованные с использованием Python, Selenium и Docker.
 
@@ -20,65 +20,18 @@
 
 ## Установка и запуск тестов
 
-1. Для установки необходимых модулей используйте команду "pip install -r requirements.txt"
-2. Для запуска тестов без использования модуля Allure Report используйте команду "pytest tests"
+1. Для установки необходимых модулей используйте команду "pip install -r requirements.txt".
+2. Перед первым запуском тестов рекомендуется выполнить команду "pytest tests/test_check.py". Она запустит автотест проверки заголовка тестового сайта "AQA-Shop", тем самым проверим корректность запуска пакетов с помощью Docker.
+3. Для запуска тестов без использования модуля Allure Report используйте команду "pytest tests".
+4. Для запуска одного файла из набора тестов без использования модуля Allure Report используйте команду "pytest tests/<название файла>.py".
+5. Для запуска тестов c использованием модуля Allure Report используйте команду "pytest tests --alluredir=allure-results" (результаты тестирования будут сохранены в папке allure-results в виде JSON-файлов).
 
 ## Просмотр отчетов Allure Report
 
-//здесь будет описание действий для генерации и просмотра отчетов с помощью Allure Report//
+1. Для просмотра отчетов, сгенирированных Allure Report, необходимо поставить Allure CLI. Не забудьте добавить путь к папке bin внутри директории Allure CLI в переменные среды Windows (PATH).
+2. Для просмотра отчета в веб-браузере выполните команду "allure serve allure-results".
+3. Для генерации HTML-отчета в папке "allure-report" выполните команду "allure generate allure-results --clean -o allure-report" (результаты тестирования будут сохранены в папке allure-report).
 
-## Структура проекта
+## SQL-скрипт
 
-//здесь будет описание структуры проекта (иерархия папок, что в них и т.д.)//
-
-
-
-//Это всё, что удалось выудить из БД (скопировал из docker exec. 
-//DBeaver при запуске скрипта пишет, что нет соединения, хотя базу видит и к ней подключается).
-//Порт поменял на 5433:5432
-
-su postgres
-postgres@2ebe98739f2e:/$ psql
-psql: error: connection to server on socket "/var/run/postgresql/.s.PGSQL.5432" failed: FATAL:  role "postgres" does not exist
-postgres@2ebe98739f2e:/$ psql -U aqa_user
-psql: error: connection to server on socket "/var/run/postgresql/.s.PGSQL.5432" failed: FATAL:  database "aqa_user" does not exist
-postgres@2ebe98739f2e:/$ psql -U aqa_user -d aqa_db
-psql (13.23 (Debian 13.23-1.pgdg13+1))
-Type "help" for help.
-
-aqa_db=# \ll
-invalid command \ll
-Try \? for help.
-aqa_db=# \?
-aqa_db=# \dt
-                 List of relations
- Schema |         Name          | Type  |  Owner   
---------+-----------------------+-------+----------
- public | credit_request_entity | table | aqa_user
- public | order_entity          | table | aqa_user
- public | payment_entity        | table | aqa_user
-(3 rows)
-
-aqa_db=# select * from order_entity;
- id | created | credit_id | payment_id 
-----+---------+-----------+------------
-(0 rows)
-
-aqa_db=# select * from payment_entity;
- id | amount | created | status | transaction_id 
-----+--------+---------+--------+----------------
-(0 rows)
-
-aqa_db=# select * from credit_request_entity;
- id | bank_id | created | status 
-----+---------+---------+--------
-(0 rows)
-
-aqa_db=# \dd
-         Object descriptions
- Schema | Name | Object | Description 
---------+------+--------+-------------
-(0 rows)
-
-aqa_db=# \?
-aqa_db=#
+SQL-скрипт содержится в файле script.sql
