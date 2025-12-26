@@ -28,7 +28,7 @@
 
 ## Просмотр отчетов Allure Report
 
-1. Для просмотра отчетов, сгенирированных Allure Report, необходимо поставить Allure CLI. Не забудьте добавить путь к папке bin внутри директории Allure CLI в переменные среды Windows (PATH).
+1. Для просмотра отчетов, сгенирированных Allure Report, необходимо поставить Allure CLI. Не забудьте добавить путь к папке bin внутри директории Allure CLI в переменные среды вашей ОС (PATH).
 2. Для просмотра отчета в веб-браузере выполните команду "allure serve allure-results".
 3. Для генерации HTML-отчета в папке "allure-report" выполните команду "allure generate allure-results --clean -o allure-report" (результаты тестирования будут сохранены в папке allure-report).
 
