@@ -1,22 +1,21 @@
 version: '3.8'
 
 services:
-  postgresql:
-    image: postgres:13
-    ports:
-      - "5433:5432"
+  postgres:
+    image: postgres:15
+    container_name: postgres
     environment:
-      POSTGRES_USER: aqa_user
-      POSTGRES_PASSWORD: aqa_password
-      POSTGRES_DB: aqa_db
+      POSTGRES_DB: app
+      POSTGRES_USER: app
+      POSTGRES_PASSWORD: pass
+    ports:
+      - "5432:5432"
     volumes:
-      - pg_data:/var/lib/postgresql/data
+      - pgdata:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U aqa_user -d aqa_db"]
+      test: ["CMD-SHELL", "pg_isready -U app"]
       interval: 10s
-      timeout: 5s
       retries: 5
-    restart: always
 
   gate-simulator:
     build:
@@ -25,28 +24,25 @@ services:
     ports:
       - "9999:9999"
     depends_on:
-      postgresql:
+      postgres:
         condition: service_healthy
     restart: always
 
   aqa-shop:
-    build:
-      context: .
-      dockerfile: Dockerfile.aqa-shop
+    image: eclipse-temurin:17-jdk
+    container_name: aqa-shop
+    working_dir: /app
+    volumes:
+      - ./aqa-shop.jar:/app/aqa-shop.jar
+      - ./application.properties:/app/application.properties
+    command: ["java", "-jar", "aqa-shop.jar", "--spring.config.location=file:/app/application.properties"]
     ports:
       - "8080:8080"
     depends_on:
-      postgresql:
+      postgres:
         condition: service_healthy
       gate-simulator:
         condition: service_started
-    environment:
-      DB_HOST: postgresql
-      DB_PORT: 5432
-      DB_NAME: aqa_db
-      DB_USER: aqa_user
-      DB_PASSWORD: aqa_password
-    restart: always
 
 volumes:
-  pg_data:
+  pgdata:
